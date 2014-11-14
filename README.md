@@ -11,8 +11,11 @@ __For the intel Edison:__
 -PIP pyton package manager
 -pymongo library for connecting to a mongodb database using python.
 
+__For the user's computer:__
 
-
+-PIP pyton package manager
+-pymongo library for connecting to a mongodb database using python.
+-scapy for network traffic analisis
 
 #Steps
 

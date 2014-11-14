@@ -23,9 +23,10 @@
 # Import the GPIOEdison class from the wiringx86 module.
 #The Module can be downloaded from: https://github.com/emutex/wiring-x86
 from wiringx86 import GPIOEdison as GPIO
-import pymongo
-from pymongo import MongoClient
+#import pymongo
+#from pymongo import MongoClient
 import time
+import urllib2
 
 # Create a new instance of the GPIOEdison class.
 # Setting debug=True gives information about the interaction with sysfs.
@@ -40,33 +41,48 @@ for i in pin:
 ####### MONGODB STUFF ########
 #Connect to the database at mongolab.com
 #client = MongoClient('mongodb://technoxaman:tiger_vs_dragon@ds051640.mongolab.com:51640/thesis_prototype_1')
-client = MongoClient('mongodb://192.168.1.107:27017')
-db = client.thesis_prototype_1
+#client = MongoClient('mongodb://technoshaman.local:27017')
+#client = MongoClient('mongodb://technoshaman.noip.me:4400')
+#db = client.thesis_prototype_1
 #connect to the collection
 #collection = db.data_consume
 ###############################
 
 counter = 0
-state = 0
 
 try:
     while(True):
-        if counter == 20:
+        if counter == 10:
+            data = urllib2.urlopen("http://192.168.100:8000/data.txt").read()
+            print "Received:", data
             #collection = db.data_consume
-            print list(db.data_consume.find().sort({ 'uid', pymongo.DESCENDING}).limit(1))
+            #print list(db.data_consume.find().sort({ 'uid', pymongo.DESCENDING}).limit(1))
             global counter
-            global state
-            #print 'Blinking pin %d now...' % pin[state]
-            # Write a state to the pin. ON or OFF.
-            gpio.digitalWrite(pin[state], gpio.HIGH)
-            #time.sleep(0.5)
-            #gpio.digitalWrite(i, gpio.LOW)
-            #time.sleep(0.5)
+            print "Received:", data
+            if data == 1000:
+                gpio.digitalWrite(pin[0], gpio.HIGH)
+            if data == 2000:
+                gpio.digitalWrite(pin[1], gpio.HIGH)
+            if data == 3000:
+                gpio.digitalWrite(pin[2], gpio.HIGH)
+            if data == 4000:
+                gpio.digitalWrite(pin[3], gpio.HIGH)
+            if data == 5000:
+                gpio.digitalWrite(pin[4], gpio.HIGH)
+            if data == 6000:
+                gpio.digitalWrite(pin[5], gpio.HIGH)
+            if data == 7000:
+                gpio.digitalWrite(pin[6], gpio.HIGH)
+            if data == 8000:
+                gpio.digitalWrite(pin[7], gpio.HIGH)
+            if data == 9000:
+                gpio.digitalWrite(pin[8], gpio.HIGH)
+            if data == 10000:
+                gpio.digitalWrite(pin[9], gpio.HIGH)
             counter = 0
-            state += 1
         counter += 1
         print counter
-        time.sleep(0.5)
+        time.sleep(1)
 
 # When you get tired of seeing the led blinking kill the loop with
 #Ctrl-C.
